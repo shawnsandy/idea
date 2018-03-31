@@ -11,5 +11,5 @@ A design system framework
 * Write you code
 * Build production files `yarn build`
 * Open / Edit README.md, package.js replace defaults like package name, email, urls, emails etc, with your own.
-* Wakanda FORVERE!
+* Wakanda FOREVER!
 * Enjoy! 
