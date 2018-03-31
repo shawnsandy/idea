@@ -9,6 +9,7 @@ const Notify = require("webpack-notifier");
 const OptimizeCss = require("optimize-css-assets-webpack-plugin");
 const Monitor = require("webpack-monitor");
 const Jarvis = require("webpack-jarvis");
+const BrowserSync = require("browser-sync-webpack-plugin");
 
 require("dotenv").config();
 
@@ -31,9 +32,9 @@ const config = {
   devtool: setDevTool(),
 
   entry: {
-    app: __dirname + "/src/js/app.js",
+    index: __dirname + "/src/js/index.js",
     riot: __dirname + "/src/riot/index.js",
-    vendors: ["umbrellajs", "validate", "smooth-scroll", 'riot']
+    vendors: ["umbrellajs", "validate", "smooth-scroll", "riot"]
   },
   output: {
     path: __dirname + "/dist",
@@ -90,22 +91,15 @@ const config = {
       inject: "body",
       title: "BlackTie"
     }),
+    new BrowserSync({
+      host: "localhost",
+      port: 3000,
+      proxy: "http://localhost:8080/"
+    }),
     new Webpack.optimize.CommonsChunkPlugin({
       name: "vendors"
-    }),
-    new Copy([
-      {
-        from: __dirname + "/public/stylesheets"
-      },
-      {
-        from:
-          __dirname +
-          "/node_modules/bytesize-icons/dist/bytesize-symbols.min.svg",
-        to: "icons/bytesize-symbols.min.svg"
-      }
-    ])
-  ],
-
+    })
+  ]
 };
 
 // Minify and copy assets in production
