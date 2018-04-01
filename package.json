@@ -9,7 +9,7 @@
     "stencil": "stencil build",
     "start-stencil": "stencil-dev-server",
     "dev": "cross-env ENV=local webpack --hide-modules --progress",
-    "start": "cross-env ENV=local webpack-dev-server --progress --colors",
+    "start": "cross-env ENV=local webpack-dev-server --history-api-fallback --watch --hot",
     "bump": "cross-env ENV=production np --no-publish",
     "kss": "kss --config kss-config.json",
     "reports": "gulp reports"
@@ -35,6 +35,7 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015-riot": "^1.1.0",
+    "blendid": "^4.3.1",
     "browser-sync": "^2.23.6",
     "browser-sync-webpack-plugin": "^2.2.2",
     "clean-webpack-plugin": "^0.1.17",

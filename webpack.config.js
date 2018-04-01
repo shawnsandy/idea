@@ -9,9 +9,13 @@ const Notify = require("webpack-notifier");
 const OptimizeCss = require("optimize-css-assets-webpack-plugin");
 const Monitor = require("webpack-monitor");
 const Jarvis = require("webpack-jarvis");
-const BrowserSync = require("browser-sync-webpack-plugin");
+const BrowserSync = require('browser-sync-webpack-plugin')
 
 require("dotenv").config();
+
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3030; //change
+const PROXY = `http://${HOST}:${PORT}`;
 
 const ENV = process.env.ENV;
 const isDevelopment = ENV === "development";
@@ -20,7 +24,7 @@ const isProduction = ENV === "production";
 function setDevTool() {
   // function to set dev-tool depending on environment
   if (isDevelopment) {
-    return "inline-source-map";
+    return "eval-source-map";
   } else if (isProduction) {
     return "source-map";
   } else {
@@ -32,7 +36,7 @@ const config = {
   devtool: setDevTool(),
 
   entry: {
-    index: __dirname + "/src/js/index.js",
+    app: __dirname + "/src/js/index.js",
     riot: __dirname + "/src/riot/index.js",
     vendors: ["umbrellajs", "validate", "smooth-scroll", "riot"]
   },
@@ -40,6 +44,13 @@ const config = {
     path: __dirname + "/dist",
     filename: "js/[name].js",
     publicPath: "/"
+  },
+  devServer: {
+
+    host: HOST,
+    port: PORT,
+    contentBase: __dirname + "/dist"
+
   },
   module: {
     rules: [
@@ -98,8 +109,20 @@ const config = {
     }),
     new Webpack.optimize.CommonsChunkPlugin({
       name: "vendors"
-    })
-  ]
+    }),
+    new BrowserSync(
+      // BrowserSync options
+      {
+        host: HOST,
+        port: PORT,
+        proxy: PROXY
+      }
+    ),
+    new Copy([
+
+    ])
+  ],
+
 };
 
 // Minify and copy assets in production

@@ -2,7 +2,7 @@
 
 	<div>
 		<h1>
-			Riot example
+			Riot example..
 		</h1>
 	</div>
 
@@ -14,9 +14,9 @@
 	</style>
 
 	<script>
-	this.on('mount', function(){
-		console.log(this.root, "Loaded");
-	})
+		this.on('mount', function () {
+			console.log(this.root, "Loaded");
+		})
 	</script>
 
 </riot-example>
