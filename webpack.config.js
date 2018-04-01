@@ -102,11 +102,6 @@ const config = {
       inject: "body",
       title: "BlackTie"
     }),
-    new BrowserSync({
-      host: "localhost",
-      port: 3000,
-      proxy: "http://localhost:8080/"
-    }),
     new Webpack.optimize.CommonsChunkPlugin({
       name: "vendors"
     }),
